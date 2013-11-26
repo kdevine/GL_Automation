@@ -53,51 +53,119 @@ if b.frame(:id => 'iframe_canvas').button(:id => 'tradestack').present? then
 end
 # Start with weapons buffs
 Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'wea'
-Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
 ARTIFACT = 1
 BTNARRAY = 3
-artifacttable.rows.each do |row|
-  if artifacttable.rows[ARTIFACT].text.include? 'Crimson Amplifier' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
-  elsif artifacttable.rows[ARTIFACT].text.include? 'Crux Amplifier' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
-  elsif artifacttable.rows[ARTIFACT].text.include? 'Crimson Obelisk' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
-  elsif artifacttable.rows[ARTIFACT].text.include? 'Ancient Crystal Foci' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
-  elsif artifacttable.rows[ARTIFACT].text.include? 'Shockpulse Charger' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
-  end
-end
-# Next defense and hull buff and possibly repair ship
-b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'gri'
+
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'crimson amplifier'
 Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-hulltotal = b.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
 artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
 artifacttable.rows.each do |row|
-  if artifacttable.rows[ARTIFACT].text.include? 'Durtanium Brackets' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
-  elsif artifacttable.rows[ARTIFACT].text.include? 'Grid Console' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
-  elsif hulltotal == 0
-    if artifacttable.rows[ARTIFACT].text.include? 'Repair Nanodrones' then
-      artifacttable.rows[BTNARRAY].button(:text => 'Use').click
+  if row[ARTIFACT].text.include? 'Crimson Amplifier' then
+    row[BTNARRAY].button(:text => 'Use').click
+    break
+  end
+end
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'crux amplifier'
+Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+if !artifacttable.td(:class => 'dataTables_empty').exists? then
+  artifacttable.rows.each do |row|
+    if row[ARTIFACT].text.include? 'Crux Amplifier' then
+      row[BTNARRAY].button(:text => 'Use').click
+      break
     end
-  elsif artifacttable.rows[ARTIFACT].text.include? 'Nanite Swarm Capsules' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
   end
 end
-# Shield buff
-b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'hie'
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'crimson obelisk'
 Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
 artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
 artifacttable.rows.each do |row|
-  if artifacttable.rows[ARTIFACT].text.include? 'XCharge Cells' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
-  elsif artifacttable.rows[ARTIFACT].text.include? 'Shield Amplifier' then
-    artifacttable.rows[BTNARRAY].button(:text => 'Use').click
+  if row[ARTIFACT].text.include? 'Crimson Obelisk' then
+    row[BTNARRAY].button(:text => 'Use').click
+    break
+  end
+end
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'Ancient Crystal Foci'
+Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+artifacttable.rows.each do |row|
+  if row[ARTIFACT].text.include? 'Ancient Crystal Foci' then
+    row[BTNARRAY].button(:text => 'Use').click
+    break
+  end
+end
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'Shockpulse Charger'
+Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+artifacttable.rows.each do |row|
+  if row[ARTIFACT].text.include? 'Shockpulse Charger' then
+    row[BTNARRAY].button(:text => 'Use').click
+    break
+  end
+end
+
+# Next defense and hull buff and possibly repair ship
+hulltotal = b.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'Durtanium Brackets'
+Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+if !artifacttable.td(:class => 'dataTables_empty').exists? then
+  artifacttable.rows.each do |row|
+    if row[ARTIFACT].text.include? 'Durtanium Brackets' then
+      row[BTNARRAY].button(:text => 'Use').click
+      break
+    end
+  end
+end
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'Grid Console'
+Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+artifacttable.rows.each do |row|
+  if row[ARTIFACT].text.include? 'Grid Console' then
+    row[BTNARRAY].button(:text => 'Use').click
+    break
+  end
+end
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'Nanite Swarm Capsules'
+Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+artifacttable.rows.each do |row|
+  if row[ARTIFACT].text.include? 'Nanite Swarm Capsules' then
+    row[BTNARRAY].button(:text => 'Use').click
+    break
+  end
+end
+if hulltotal == 0 then
+  b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'Repair Nanodrones'
+  Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+  artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+  artifacttable.rows.each do |row|
+    if row[ARTIFACT].text.include? 'Repair Nanodrones' then
+      row[BTNARRAY].button(:text => 'Use').click
+      break
+    end
+  end
+end
+
+# Shield buff
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'XCharge Cells'
+Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+if !artifacttable.td(:class => 'dataTables_empty').exists? then
+  artifacttable.rows.each do |row|
+    if row[ARTIFACT].text.include? 'XCharge Cells' then
+      row[BTNARRAY].button(:text => 'Use').click
+      break
+    end
+  end
+end
+b.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set 'Shield Amplifier'
+Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+artifacttable = b.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+artifacttable.rows.each do |row|
+  if row[ARTIFACT].text.include? 'Shield Amplifier' then
+    row[BTNARRAY].button(:text => 'Charge').click
+    break
   end
 end
 
@@ -108,7 +176,7 @@ b.frame(:id => 'iframe_canvas').link(:id => "menu_Ship").click
 b.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability').click
 Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').link(:text => "Module Abilities").present? }
 b.frame(:id => 'iframe_canvas').link(:text => "Module Abilities").click
-Watir::Wait.until(10) { b.frame(:id => 'iframe_canvas').table(:id => "items").present? }
+Watir::Wait.until(20) { b.frame(:id => 'iframe_canvas').table(:id => "items").present? }
 abilitytable = b.frame(:id => 'iframe_canvas').table(:id => "items")
 ABILITY = 1
 USEBUTTON = 3
@@ -116,23 +184,55 @@ dve_ab = false
 qpa_ab = false
 shn_ab = false
 abilitytable.rows.each do |row|
-  if abililtytable.rows[ABILITY].text.include? 'Dark Void Engine' and dve_ab == false then
-    abililtytable.rows[USEBUTTON].button(:text => 'Use').click if abililtytable.rows[USEBUTTON].button(:text => 'Use').enabled?
+  if row[ABILITY].text.include? 'Dark Void Engine' and dve_ab == false then
+    row[USEBUTTON].button(:text => 'Use').click if row[USEBUTTON].button(:text => 'Use').enabled?
     dve_ab = true
-  elsif abililtytable.rows[ABILITY].text.include? 'Alarri Probability Core' then
-    abililtytable.rows[USEBUTTON].button(:text => 'Use').click if abililtytable.rows[USEBUTTON].button(:text => 'Use').enabled?
-  elsif abililtytable.rows[ABILITY].text.include? 'Subquantum Tracing Console' then
-    abililtytable.rows[USEBUTTON].button(:text => 'Use').click if abililtytable.rows[USEBUTTON].button(:text => 'Use').enabled?
-  elsif abililtytable.rows[ABILITY].text.include? 'Q-Pedd Ansible' and qpa_ab == false then
-    abililtytable.rows[USEBUTTON].button(:text => 'Use').click if abililtytable.rows[USEBUTTON].button(:text => 'Use').enabled?
-    qpa_ab = true
-  elsif abililtytable.rows[ABILITY].text.include? 'Scruuge Hypernode' and shn_ab == false then
-    abililtytable.rows[USEBUTTON].button(:text => 'Use').click if abililtytable.rows[USEBUTTON].button(:text => 'Use').enabled?
-    shn_ab = true
-  elsif abililtytable.rows[ABILITY].text.include? 'Q-Pedd Assembly Line' then
-    abililtytable.rows[USEBUTTON].button(:text => 'Use').click if abililtytable.rows[USEBUTTON].button(:text => 'Use').enabled?
+    break
   end
 end
+Watir::Wait.until(20) { b.frame(:id => 'iframe_canvas').table(:id => "items").present? }
+abilitytable = b.frame(:id => 'iframe_canvas').table(:id => "items")
+abilitytable.rows.each do |row|
+  if row[ABILITY].text.include? 'Alarri Probability Core' then
+    row[USEBUTTON].button(:text => 'Use').click if row[USEBUTTON].button(:text => 'Use').enabled?
+    break
+  end
+end
+Watir::Wait.until(20) { b.frame(:id => 'iframe_canvas').table(:id => "items").present? }
+abilitytable = b.frame(:id => 'iframe_canvas').table(:id => "items")
+abilitytable.rows.each do |row|
+  if row[ABILITY].text.include? 'Subquantum Tracing Console' then
+    row[USEBUTTON].button(:text => 'Use').click if row[USEBUTTON].button(:text => 'Use').enabled?
+    break
+  end
+end
+Watir::Wait.until(20) { b.frame(:id => 'iframe_canvas').table(:id => "items").present? }
+abilitytable = b.frame(:id => 'iframe_canvas').table(:id => "items")
+abilitytable.rows.each do |row|
+  if row[ABILITY].text.include? 'Q-Pedd Ansible' and qpa_ab == false then
+    row[USEBUTTON].button(:text => 'Use').click if row[USEBUTTON].button(:text => 'Use').enabled?
+    qpa_ab = true
+    break
+  end
+end
+Watir::Wait.until(20) { b.frame(:id => 'iframe_canvas').table(:id => "items").present? }
+abilitytable = b.frame(:id => 'iframe_canvas').table(:id => "items")
+abilitytable.rows.each do |row|
+  if row[ABILITY].text.include? 'Scruuge Hypernode' and shn_ab == false then
+    row[USEBUTTON].button(:text => 'Use').click if row[USEBUTTON].button(:text => 'Use').enabled?
+    shn_ab = true
+    break
+  end
+end
+Watir::Wait.until(20) { b.frame(:id => 'iframe_canvas').table(:id => "items").present? }
+abilitytable = b.frame(:id => 'iframe_canvas').table(:id => "items")
+abilitytable.rows.each do |row|
+  if row[ABILITY].text.include? 'Q-Pedd Assembly Line' then
+    row[USEBUTTON].button(:text => 'Use').click if row[USEBUTTON].button(:text => 'Use').enabled?
+    break
+  end
+end
+
 b.frame(:id => 'iframe_canvas').div(:class => 'dialog-close').click
 
 # Go to Legion screen, legion base, UDT for buffing
