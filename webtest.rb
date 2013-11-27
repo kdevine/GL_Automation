@@ -6,7 +6,7 @@ b = Watir::Browser.new :firefox
 b.goto "http://facebook.com"
 
 b.text_field(:id => "email").set 'kdevine@yahoo.com'
-b.text_field(:id => "pass").set '325cf7669775b6feb4606073a9a4055adef826a2d64d227791dcd985990c406e'
+b.text_field(:id => "pass").set '<password>'
 b.form(:id => 'login_form').submit
 
 b.button(:name => "submit[Continue]").when_present.click
