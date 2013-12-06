@@ -1,0 +1,7 @@
+source 'http://rubygems.org'
+
+# browser related gems
+gem 'selenium-webdriver'
+gem 'watir-webdriver'
+gem 'watir-scroll'
+gem 'page-object'
