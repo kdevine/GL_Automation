@@ -24,8 +24,8 @@ GLAuto.activateModuleAbility(@b, 'Scruuge Charged Hypernode')
 GLAuto.activateModuleAbility(@b, 'Q-Pedd Assembly Line')
 GLAuto.activateModuleAbility(@b, 'Thraccti, Scruuge Defector')
 
-GLAuto.activatePlayerAbility(@b, 'Dark Aperture-Key')
-GLAuto.activatePlayerAbility(@b, 'Uldrinan Quota')
+GLAuto.activatePlayerAbility(@b, 'Dark Aperture-Key','Activate')
+GLAuto.activatePlayerAbility(@b, 'Uldrinan Quota','Use')
 
 # Collect minerals and artifacts
 GLAuto.collectMinerals(@b)
@@ -33,8 +33,16 @@ GLAuto.collectMinerals(@b)
 GLAuto.collectArtifacts(@b)
 
 # Start with weapons buffs
-Watir::Wait.until(10) { @b.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-hulltotal = @b.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
+begin
+  tries ||= 3
+  Watir::Wait.until(10) { @b.frame(:id => 'iframe_canvas').present? }
+  @b.scroll.to    @b.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l')
+  hulltotal = @b.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
+rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError, Net::ReadTimeout, Watir::Wait::TimeoutError => e
+  puts "#{ e } (#{ e.class })!"
+  retry unless (tries -= 1).zero?
+end
+
 
 GLAuto.useArtifact(@b, 'Crimson Amplifier', 'Use')
 GLAuto.useArtifact(@b, 'Crux Amplifier', 'Use')
