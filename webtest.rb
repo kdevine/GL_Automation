@@ -49,14 +49,27 @@ GLAuto.useArtifact(@b, 'Crux Amplifier', 'Use')
 GLAuto.useArtifact(@b, 'Crimson Obelisk', 'Use')
 GLAuto.useArtifact(@b, 'Ancient Crystal Foci', 'Use')
 GLAuto.useArtifact(@b, 'Shockpulse Charger', 'Use')
-GLAuto.useArtifact(@b, 'Durtanium Brackets', 'Use')
 GLAuto.useArtifact(@b, 'Grid Console', 'Use')
 GLAuto.useArtifact(@b, 'Nanite Swarm Capsules', 'Use')
 GLAuto.useArtifact(@b, 'Repair Nanodrones', 'Use') if hulltotal == 0
-GLAuto.useArtifact(@b, 'XCharge Cells', 'Use')
 GLAuto.useArtifact(@b, 'Shield Amplifier', 'Charge')
 GLAuto.useArtifact(@b, 'Neural Interface', 'Use')
 GLAuto.useArtifact(@b, 'Containment Cage', 'Use')
+GLAuto.useArtifact(@b, 'Krionus Virus Trap', 'Set')
+GLAuto.useArtifact(@b, 'Quantum Firewall Trap','Set')
+
+GLAuto.useAllArtifact(@b,'Rescued Prisoners','Use')
+GLAuto.useAllArtifact(@b,'Android Helmsman','Hire')
+GLAuto.useAllArtifact(@b,'Android Scientist','Hire')
+GLAuto.useAllArtifact(@b,'Rescued Scientists','Hire')
+GLAuto.useAllArtifact(@b,'Rescued Specialists','Hire')
+GLAuto.useAllArtifact(@b,'XCharge Cells','Use')
+GLAuto.useAllArtifact(@b,'Durtanium Brackets','Use')
+GLAuto.useAllArtifact(@b,'Alien Data Disc','Analyze')
+GLAuto.useAllArtifact(@b,'Mass Storage Pod','Use')
+
+GLAuto.scrapAllArtifact(@b,'Dark Phase Engine')
+GLAuto.scrapAllArtifact(@b,'Scythe Plating')
 
 #TODO: Go to Legion screen, legion base, UDT for buffing
 
