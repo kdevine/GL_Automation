@@ -21,6 +21,16 @@ module GLAuto
   #      GLAuto.convertResearchToCredits(browser)
   #      GLAuto.attemptExperiment(browser)
 
+  def GLAuto.hullTotal(browser)
+    tries ||= 3
+    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').present? }
+    browser.scroll.to browser.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l')
+    return browser.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
+  rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError, Net::ReadTimeout, Watir::Wait::TimeoutError => e
+    puts "#{ e } (#{ e.class })!"
+    retry unless (tries -= 1).zero?
+  end
+
   def GLAuto.scrapAllArtifact(browser, artifact)
     GLAuto.scrapArtifact(browser, artifact, 999999)
   end
@@ -88,7 +98,7 @@ module GLAuto
       artifacttable.rows.each do |row|
         browser.scroll.to row
         if row[ARTIFACT].text.include? artifact then
-          row[BTNARRAY].button(:text => useText).click
+          row[BTNARRAY].button(:text => useText).click if row[BTNARRAY].button(:text => useText).enabled?
           break
         end
       end
