@@ -316,8 +316,8 @@ module GLAuto
       if hulltotal < 20000 then
         browser.frame(:id => 'iframe_canvas').div(:class => 'dialog-close').click
         Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'npcbattle').present? }
-        GLAuto.navigateToTrade(browser)
         GLAuto.useArtifact(browser, 'Repair Nanodrones', 'Use')
+        GLAuto.useArtifact(browser, 'Shield Restorer', 'Use')
         Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
         browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
       end

@@ -61,6 +61,7 @@ GLAuto.scrapAllArtifact(@b,"Sha'din Hypergrid Core")
 GLAuto.scrapAllArtifact(@b,"Sha'din Hypergrid Network")
 GLAuto.scrapAllArtifact(@b,"Sha'din Security Terminal")
 GLAuto.scrapAllArtifact(@b,'T.O. Phase Barrier')
+GLAuto.scrapAllArtifact(@b,'T.O. Harmonic TeraPulser')
 
 GLAuto.navigateToBattle(@b)
 GLAuto.battleNPCs(@b)
