@@ -321,7 +321,7 @@ module GLAuto
         Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
         browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
       end
-      puts "Current energy: #{energytotal}, Hull: #{hulltotal}"
+      p "#{Time.now.strftime('%I:%M:%S.%L %p')} Current energy: #{energytotal}, Hull: #{hulltotal}"
     end
 
   rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError, Net::ReadTimeout, Watir::Wait::TimeoutError => e

@@ -66,6 +66,6 @@ GLAuto.useArtifact(@b, 'Quantum Firewall Trap','Set')
 GLAuto.navigateToBattle(@b)
 GLAuto.battleNPCs(@b)
 
-#b.quit
+@b.quit
 
 
