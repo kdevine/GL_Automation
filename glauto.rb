@@ -36,6 +36,7 @@ module GLAuto
   end
 
   def GLAuto.scrapArtifact(browser, artifact, number)
+    
     tries ||= 3
     if !browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present?
       Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').visible? }
@@ -111,7 +112,7 @@ module GLAuto
   end
 
   def GLAuto.useArtifact(browser, artifact, useText)
-    tries ||= 3
+     tries ||= 3
     if !browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? then
       Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').visible? }
       Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
@@ -213,7 +214,7 @@ module GLAuto
     browser.scroll.to browser.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability')
     browser.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability').click
     Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:text => "Module Abilities").present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:text => 'Module Abilities')
+     browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:text => 'Module Abilities')
     browser.frame(:id => 'iframe_canvas').link(:text => "Module Abilities").click
     puts "Activate #{abilityname}"
     Watir::Wait.until(20) { browser.frame(:id => 'iframe_canvas').div(:id => 'tabmods').table.present? }
