@@ -23,9 +23,10 @@ GLAuto.activateModuleAbility(@b, 'Q-Pedd Ansible')
 GLAuto.activateModuleAbility(@b, 'Scruuge Charged Hypernode')
 GLAuto.activateModuleAbility(@b, 'Q-Pedd Assembly Line')
 GLAuto.activateModuleAbility(@b, 'Thraccti, Scruuge Defector')
+GLAuto.activateModuleAbility(@b, 'Q-Pedd Emotion Simulator')
 
 GLAuto.activatePlayerAbility(@b, 'Dark Aperture-Key','Activate')
-GLAuto.activatePlayerAbility(@b, 'Uldrinan Quota','Use')
+#GLAuto.activatePlayerAbility(@b, 'Uldrinan Quota','Use')
 
 # Collect minerals and artifacts
 GLAuto.collectMinerals(@b)
@@ -38,8 +39,6 @@ GLAuto.useAllArtifact(@b,'Rescued Specialists','Hire')
 GLAuto.useAllArtifact(@b,'Rescued Scientists','Hire')
 GLAuto.useAllArtifact(@b,'XCharge Cells','Use')
 GLAuto.useAllArtifact(@b,'Durtanium Brackets','Use')
-GLAuto.useAllArtifact(@b,'Alien Data Disc','Analyze')
-GLAuto.useAllArtifact(@b,'Mass Storage Pod','Use')
 
 GLAuto.scrapAllArtifact(@b,'Dark Phase Engine')
 GLAuto.scrapAllArtifact(@b,'Scythe Plating')
