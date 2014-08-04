@@ -15,6 +15,7 @@ GLAuto.loginToFacebook(@b)
 
 @b.goto "http://apps.facebook.com/galaxylegion/"
 
+
 # Go to Ship screen, use ability to buff for NPC attack
 GLAuto.activateModuleAbility(@b, 'Dark Void Engine')
 GLAuto.activateModuleAbility(@b, 'Alarri Probability Core')
@@ -24,6 +25,9 @@ GLAuto.activateModuleAbility(@b, 'Scruuge Charged Hypernode')
 GLAuto.activateModuleAbility(@b, 'Q-Pedd Assembly Line')
 GLAuto.activateModuleAbility(@b, 'Thraccti, Scruuge Defector')
 GLAuto.activateModuleAbility(@b, 'Q-Pedd Emotion Simulator')
+GLAuto.activateModuleAbility(@b, 'Cybernetic Link Interface')
+GLAuto.activateModuleAbility(@b, 'Cuniculus, Lepus Adjutant')
+GLAuto.activateModuleAbility(@b, 'Vortov, Hired Mercenary')
 
 GLAuto.activatePlayerAbility(@b, 'Dark Aperture-Key','Activate')
 #GLAuto.activatePlayerAbility(@b, 'Uldrinan Quota','Use')

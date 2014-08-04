@@ -295,7 +295,7 @@ module GLAuto
       npctable.rows.each do |row|
         browser.scroll.to row
         if row[TYPE].text.include? 'Standard'
-          if !row[TARGET].text.include? 'Xathe' and !(row[TARGET].text.include? 'Scruuge' and row[TYPE].text.include? 'Rare') then
+          if !row[TARGET].text.include? 'Elios Empyrean' and !row[TARGET].text.include? 'Mawk' and !row[TARGET].text.include? 'Xathe' and !(row[TARGET].text.include? 'Scruuge' and row[TYPE].text.include? 'Rare') and !(row[TARGET].text.include? 'Lepus' and row[TYPE].text.include? 'Rare') then
             until browser.frame(:id => 'iframe_canvas').button(:id => 'npcattack').present? do
               row[ATK_BTN].button(:tag_name => "button").click
             end
