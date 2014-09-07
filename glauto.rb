@@ -23,9 +23,10 @@ module GLAuto
 
   def GLAuto.hullTotal(browser)
     tries ||= 3
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l')
-    return browser.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').span(:id => 's-Hull-l')
+    return browser.iframe(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
   rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError, Net::ReadTimeout, Watir::Wait::TimeoutError => e
     puts "#{ e } (#{ e.class })!"
     retry unless (tries -= 1).zero?
@@ -38,19 +39,21 @@ module GLAuto
   def GLAuto.scrapArtifact(browser, artifact, number)
     
     tries ||= 3
-    if !browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present?
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').visible? }
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade")
-      browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").click
-      browser.frame(:id => 'iframe_canvas').link(:text => "Artifacts").click
+
+    if !browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present?
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').visible? }
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade")
+      browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").click
+      browser.iframe(:id => 'iframe_canvas').link(:text => "Artifacts").click
     end
     puts "Scrap #{artifact}"
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter')
-    browser.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set artifact
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-    artifacttable = browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').div(:id => 'artifacts_filter')
+    browser.iframe(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set artifact
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+    artifacttable = browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts')
     if !artifacttable.td(:class => 'dataTables_empty').exists? then
       artifacttable.rows.each do |row|
         browser.scroll.to row
@@ -69,8 +72,9 @@ module GLAuto
 
           artifacttable.text_field(:id => 'sellart').set number
           row[BTNARRAY].button(:text => 'Scrap').click
-          Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').div(:class => 'error_msg_lg').present? }
-          browser.frame(:id => 'iframe_canvas').div(:class => 'error_msg_lg').button(:class => 'red').when_present.click
+
+          Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').div(:class => 'error_msg_lg').present? }
+          browser.iframe(:id => 'iframe_canvas').div(:class => 'error_msg_lg').button(:class => 'red').when_present.click
           break
         end
       end
@@ -82,19 +86,20 @@ module GLAuto
 
   def GLAuto.useAllArtifact(browser, artifact, useText)
     tries ||= 3
-    if !browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? then
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').visible? }
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade")
-      browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").click
-      browser.frame(:id => 'iframe_canvas').link(:text => "Artifacts").click
+
+    if !browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? then
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').visible? }
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade")
+      browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").click
+      browser.iframe(:id => 'iframe_canvas').link(:text => "Artifacts").click
     end
     puts "Use #{artifact}"
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter')
-    browser.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set artifact
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-    artifacttable = browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').div(:id => 'artifacts_filter')
+    browser.iframe(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set artifact
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+    artifacttable = browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts')
     until artifacttable.td(:class => 'dataTables_empty').exists? do
       artifacttable.rows.each do |row|
         browser.scroll.to row
@@ -103,8 +108,9 @@ module GLAuto
           break
         end
       end
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-      artifacttable = browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+      artifacttable = browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts')
     end
   rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError => e
     puts "#{ e } (#{ e.class })!"
@@ -113,19 +119,21 @@ module GLAuto
 
   def GLAuto.useArtifact(browser, artifact, useText)
      tries ||= 3
-    if !browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? then
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').visible? }
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade")
-      browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").click
-      browser.frame(:id => 'iframe_canvas').link(:text => "Artifacts").click
+
+    if !browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? then
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').visible? }
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade")
+      browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").click
+      browser.iframe(:id => 'iframe_canvas').link(:text => "Artifacts").click
     end
     puts "Use #{artifact}"
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter')
-    browser.frame(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set artifact
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
-    artifacttable = browser.frame(:id => 'iframe_canvas').table(:id => 'artifacts')
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').div(:id => 'artifacts_filter')
+    browser.iframe(:id => 'iframe_canvas').div(:id => 'artifacts_filter').text_field(:type => 'text').set artifact
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts').present? }
+    artifacttable = browser.iframe(:id => 'iframe_canvas').table(:id => 'artifacts')
     if !artifacttable.td(:class => 'dataTables_empty').exists? then
       artifacttable.rows.each do |row|
         browser.scroll.to row
@@ -142,44 +150,47 @@ module GLAuto
 
   def GLAuto.navigateToBattle(browser)
     #Repeated 8 times to get new NPCs
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle")
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle")
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
   end
 
   def GLAuto.collectArtifacts(browser)
     tries ||= 3
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').visible? }
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").visible? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade")
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").click
-    if browser.frame(:id => 'iframe_canvas').checkbox(:id => 'getallartifact').present? then
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').checkbox(:id => 'getallartifact')
-      browser.frame(:id => 'iframe_canvas').checkbox(:id => 'getallartifact').set
-      browser.frame(:id => 'iframe_canvas').button(:id => 'traderas').click
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').button(:class => 'red').present? }
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').button(:class => 'red')
-      browser.frame(:id => 'iframe_canvas').button(:class => 'red').click
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').visible? }
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").visible? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade")
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").click
+    if browser.iframe(:id => 'iframe_canvas').checkbox(:id => 'getallartifact').present? then
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').checkbox(:id => 'getallartifact')
+      browser.iframe(:id => 'iframe_canvas').checkbox(:id => 'getallartifact').set
+      browser.iframe(:id => 'iframe_canvas').button(:id => 'traderas').click
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').button(:class => 'red').present? }
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').button(:class => 'red')
+      browser.iframe(:id => 'iframe_canvas').button(:class => 'red').click
     end
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:text => "Artifacts")
-    browser.frame(:id => 'iframe_canvas').link(:text => "Artifacts").click
-    if browser.frame(:id => 'iframe_canvas').button(:id => 'tradestack').present? then
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').button(:id => 'tradestack')
-      browser.frame(:id => 'iframe_canvas').button(:id => 'tradestack').click
+
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:text => "Artifacts")
+    browser.iframe(:id => 'iframe_canvas').link(:text => "Artifacts").click
+    if browser.iframe(:id => 'iframe_canvas').button(:id => 'tradestack').present? then
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').button(:id => 'tradestack')
+      browser.iframe(:id => 'iframe_canvas').button(:id => 'tradestack').click
     end
   rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError => e
     puts "#{ e } (#{ e.class })!"
@@ -188,37 +199,42 @@ module GLAuto
 
   def GLAuto.collectMinerals(browser)
     tries ||= 3
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').visible? }
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade")
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Trade").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').div(:id => 'tab5').present? }
-    if browser.frame(:id => 'iframe_canvas').button(:id => 'traderms').present? then
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').button(:id => 'traderms')
-      browser.frame(:id => 'iframe_canvas').button(:id => 'traderms').click
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').button(:id => 'tradesellallm').present? }
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').button(:id => 'tradesellallm')
-      browser.frame(:id => 'iframe_canvas').button(:id => 'tradesellallm').click
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').visible? }
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade")
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Trade").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').div(:id => 'tab5').present? }
+    if browser.iframe(:id => 'iframe_canvas').button(:id => 'traderms').present? then
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').button(:id => 'traderms')
+      browser.iframe(:id => 'iframe_canvas').button(:id => 'traderms').click
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').button(:id => 'tradesellallm').present? }
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').button(:id => 'tradesellallm')
+      browser.iframe(:id => 'iframe_canvas').button(:id => 'tradesellallm').click
     end
   rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError => e
     puts "#{ e } (#{ e.class })!"
     retry unless (tries -= 1).zero?
+  rescue Selenium::WebDriver::Error::UnknownError => e
+    puts "#{ e } (#{ e.class })!"
   end
 
   def GLAuto.activateModuleAbility(browser, abilityname)
     tries ||= 3
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Ship").present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Ship")
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Ship").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability').present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability')
-    browser.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability').click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:text => "Module Abilities").present? }
-     browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:text => 'Module Abilities')
-    browser.frame(:id => 'iframe_canvas').link(:text => "Module Abilities").click
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Ship").present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Ship")
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Ship").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').button(:text => 'Use an Ability').present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').button(:text => 'Use an Ability')
+    browser.iframe(:id => 'iframe_canvas').button(:text => 'Use an Ability').click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:text => "Module Abilities").present? }
+     browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:text => 'Module Abilities')
+    browser.iframe(:id => 'iframe_canvas').link(:text => "Module Abilities").click
     puts "Activate #{abilityname}"
-    Watir::Wait.until(20) { browser.frame(:id => 'iframe_canvas').div(:id => 'tabmods').table.present? }
-    abilitytable = browser.frame(:id => 'iframe_canvas').div(:id => 'tabmods').table
+
+    Watir::Wait.until(20) { browser.iframe(:id => 'iframe_canvas').div(:id => 'tabmods').table.present? }
+    abilitytable = browser.iframe(:id => 'iframe_canvas').div(:id => 'tabmods').table
     abilitytable.rows.each do |row|
       browser.scroll.to row
       if row[ABILITY].span.exists? then
@@ -232,27 +248,30 @@ module GLAuto
         end
       end
     end
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').div(:class => 'dialog-close')
-    browser.frame(:id => 'iframe_canvas').div(:class => 'dialog-close').click
-  rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError => e
+
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').div(:class => 'dialog-close')
+    browser.iframe(:id => 'iframe_canvas').div(:class => 'dialog-close').click
+  rescue Watir::Wait::TimeoutError,Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError => e
     puts "#{ e } (#{ e.class })!"
     retry unless (tries -= 1).zero?
   end
 
   def GLAuto.activatePlayerAbility(browser, abilityname, useText)
     tries ||= 3
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Ship").present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Ship")
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Ship").click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability').present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability')
-    browser.frame(:id => 'iframe_canvas').button(:text => 'Use an Ability').click
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:text => "Player Abilities").present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:text => "Player Abilities")
-    browser.frame(:id => 'iframe_canvas').link(:text => "Player Abilities").click
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Ship").present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Ship")
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Ship").click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').button(:text => 'Use an Ability').present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').button(:text => 'Use an Ability')
+    browser.iframe(:id => 'iframe_canvas').button(:text => 'Use an Ability').click
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:text => "Player Abilities").present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:text => "Player Abilities")
+    browser.iframe(:id => 'iframe_canvas').link(:text => "Player Abilities").click
     puts "Activate #{abilityname}"
-    Watir::Wait.until(20) { browser.frame(:id => 'iframe_canvas').div(:id => 'tababil').table.present? }
-    abilitytable = browser.frame(:id => 'iframe_canvas').div(:id => 'tababil').table
+
+    Watir::Wait.until(20) { browser.iframe(:id => 'iframe_canvas').div(:id => 'tababil').table.present? }
+    abilitytable = browser.iframe(:id => 'iframe_canvas').div(:id => 'tababil').table
     abilitytable.rows.each do |row|
       browser.scroll.to row
       if row[ABILITY].span.exists? then
@@ -266,61 +285,85 @@ module GLAuto
         end
       end
     end
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').div(:class => 'dialog-close')
-    browser.frame(:id => 'iframe_canvas').div(:class => 'dialog-close').click
+
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').div(:class => 'dialog-close')
+    browser.iframe(:id => 'iframe_canvas').div(:class => 'dialog-close').click
   rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError => e
     puts "#{ e } (#{ e.class })!"
     retry unless (tries -= 1).zero?
   end
 
   def GLAuto.battleNPCs(browser)
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').span(:id => 's-Energy-l')
-    energytotal = browser.frame(:id => 'iframe_canvas').span(:id => 's-Energy-l').text.to_i
-    hulltotal = browser.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
+
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').span(:id => 's-Energy-l')
+    energytotal = browser.iframe(:id => 'iframe_canvas').span(:id => 's-Energy-l').text.to_i
+    hulltotal = browser.iframe(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
     if hulltotal < 20000 then
       GLAuto.useArtifact(browser, 'Repair Nanodrones', 'Use')
       GLAuto.useArtifact(browser, 'Shield Restorer', 'Use')
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle")
-      browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle")
+      browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
     end
 
-    Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-    browser.scroll.to browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle")
-    browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+
+    Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+    browser.scroll.to browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle")
+    browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
     while energytotal > 10 and hulltotal > 20000 do
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'npcbattle').present? }
-      browser.scroll.to browser.frame(:id => 'iframe_canvas').table(:id => "npcbattle")
-      npctable = browser.frame(:id => 'iframe_canvas').table(:id => "npcbattle")
+
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'npcbattle').present? }
+      browser.scroll.to browser.iframe(:id => 'iframe_canvas').table(:id => "npcbattle")
+      npctable = browser.iframe(:id => 'iframe_canvas').table(:id => "npcbattle")
       npctable.rows.each do |row|
         browser.scroll.to row
         if row[TYPE].text.include? 'Standard'
           if !row[TARGET].text.include? 'Elios Empyrean' and !row[TARGET].text.include? 'Cerulean' and !row[TARGET].text.include? 'Chuhn' and !row[TARGET].text.include? 'Darmos' and !row[TARGET].text.include? 'Cobalt' and !row[TARGET].text.include? 'Xathe' and !(row[TARGET].text.include? 'Scruuge' and row[TYPE].text.include? 'Rare') and !(row[TARGET].text.include? 'Lepus' and row[TYPE].text.include? 'Rare') then
-            until browser.frame(:id => 'iframe_canvas').button(:id => 'npcattack').present? do
+            p "#{Time.now.strftime('%I:%M:%S.%L %p')} Current enemy: #{row[TARGET].text}"
+            until browser.iframe(:id => 'iframe_canvas').button(:id => 'npcattack').present? do
               row[ATK_BTN].button(:tag_name => "button").click
             end
-            Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').button(:id => 'npcattack').present? }
-            atkbtn = browser.frame(:id => 'iframe_canvas').button(:id => 'npcattack')
-            until browser.frame(:id => 'iframe_canvas').button(:class => 'grey').present? do
+
+            Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').button(:id => 'npcattack').present? }
+            atkbtn = browser.iframe(:id => 'iframe_canvas').button(:id => 'npcattack')
+            until browser.iframe(:id => 'iframe_canvas').button(:class => 'grey').present? do
               atkbtn.when_present.click if atkbtn.when_present.enabled?
             end
-            browser.scroll.to browser.frame(:id => 'iframe_canvas').div(:class => 'dialog-close')
-            browser.frame(:id => 'iframe_canvas').div(:class => 'dialog-close').when_present.click
+
+            browser.scroll.to browser.iframe(:id => 'iframe_canvas').div(:class => 'dialog-close')
+            browser.iframe(:id => 'iframe_canvas').div(:class => 'dialog-close').when_present.click
             break
+          elsif row[TARGET].text.include? 'Chuhn'
+               p "#{Time.now.strftime('%I:%M:%S.%L %p')} Trading with: #{row[TARGET].text}"
+               until browser.iframe(:id => 'iframe_canvas').button(:id => 'npcattack').present? do
+                 row[ATK_BTN].button(:tag_name => "button").click
+               end
+               Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:text => 'Actions').present? }
+               #click Actions tab
+               browser.iframe(:id => 'iframe_canvas').link(:text => 'Actions').when_present.click
+
+          else
+            p "#{Time.now.strftime('%I:%M:%S.%L %p')} Skipped special enemy: #{row[TARGET].text}" if !row[TARGET].text.include? 'Target'
           end
+        else
+          p "#{Time.now.strftime('%I:%M:%S.%L %p')} Skipped #{row[TYPE].text} enemy: #{row[TARGET].text}"   if !row[TARGET].text.include? 'Target'
         end
       end
 
-      Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'npcbattle').present? }
-      energytotal = browser.frame(:id => 'iframe_canvas').span(:id => 's-Energy-l').text.to_i
-      hulltotal = browser.frame(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
+
+      Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'npcbattle').present? }
+      energytotal = browser.iframe(:id => 'iframe_canvas').span(:id => 's-Energy-l').text.to_i
+      hulltotal = browser.iframe(:id => 'iframe_canvas').span(:id => 's-Hull-l').text.to_i
       if hulltotal < 20000 then
-        browser.frame(:id => 'iframe_canvas').div(:class => 'dialog-close').click
-        Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').table(:id => 'npcbattle').present? }
+
+        browser.iframe(:id => 'iframe_canvas').div(:class => 'dialog-close').click
+        Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').table(:id => 'npcbattle').present? }
         GLAuto.useArtifact(browser, 'Repair Nanodrones', 'Use')
         GLAuto.useArtifact(browser, 'Shield Restorer', 'Use')
-        Watir::Wait.until(10) { browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
-        browser.frame(:id => 'iframe_canvas').link(:id => "menu_Battle").click
+
+        Watir::Wait.until(10) { browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").present? }
+        browser.iframe(:id => 'iframe_canvas').link(:id => "menu_Battle").click
       end
       p "#{Time.now.strftime('%I:%M:%S.%L %p')} Current energy: #{energytotal}, Hull: #{hulltotal}"
     end
@@ -348,7 +391,9 @@ module GLAuto
     if browser.button(:name => "submit[Continue]").exists? then
       browser.button(:name => "submit[Continue]").click
     end
-
+  rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError, Net::ReadTimeout, Watir::Wait::TimeoutError => e
+    p "#{e}"
+    retry
   end
 
 end

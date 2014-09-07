@@ -5,70 +5,78 @@ require 'watir-scroll'
 require './rubypass.rb'
 require './glauto.rb'
 
-@b = Watir::Browser.new :firefox
+@bFirefox = Watir::Browser.new :firefox
 Watir.always_locate = false
-@b.add_checker do |page|
-  page.frame(:id => 'iframe_canvas').present?
+
+@bFirefox.add_checker do |page|
+  page.iframe(:id => 'iframe_canvas').present?
 end
 
-GLAuto.loginToFacebook(@b)
 
-@b.goto "http://apps.facebook.com/galaxylegion/"
+GLAuto.loginToFacebook(@bFirefox)
 
+
+@bFirefox.goto "http://apps.facebook.com/galaxylegion/"
+Watir::Wait.until(10) {@bFirefox.iframe(:id => 'iframe_canvas').present? }
+Watir::Wait.until(10) { @bFirefox.iframe(:id => 'iframe_canvas').link(:id => "menu_Ship").present? }
 
 # Go to Ship screen, use ability to buff for NPC attack
-GLAuto.activateModuleAbility(@b, 'Dark Void Engine')
-GLAuto.activateModuleAbility(@b, 'Alarri Probability Core')
-GLAuto.activateModuleAbility(@b, 'Subquantum Tracing Console')
-GLAuto.activateModuleAbility(@b, 'Q-Pedd Ansible')
-GLAuto.activateModuleAbility(@b, 'Scruuge Charged Hypernode')
-GLAuto.activateModuleAbility(@b, 'Q-Pedd Assembly Line')
-GLAuto.activateModuleAbility(@b, 'Thraccti, Scruuge Defector')
-GLAuto.activateModuleAbility(@b, 'Q-Pedd Emotion Simulator')
-GLAuto.activateModuleAbility(@b, 'Cybernetic Link Interface')
-GLAuto.activateModuleAbility(@b, 'Cuniculus, Lepus Adjutant')
-GLAuto.activateModuleAbility(@b, 'Vortov, Hired Mercenary')
+GLAuto.activateModuleAbility(@bFirefox, 'Cybernetic Link Interface')
+GLAuto.activateModuleAbility(@bFirefox, 'Dark Void Engine')
+GLAuto.activateModuleAbility(@bFirefox, 'Alarri Probability Core')
+GLAuto.activateModuleAbility(@bFirefox, 'Subquantum Tracing Console')
+GLAuto.activateModuleAbility(@bFirefox, 'Q-Pedd Ansible')
+GLAuto.activateModuleAbility(@bFirefox, 'Scruuge Charged Hypernode')
+GLAuto.activateModuleAbility(@bFirefox, 'Q-Pedd Assembly Line')
+GLAuto.activateModuleAbility(@bFirefox, 'Thraccti, Scruuge Defector')
+GLAuto.activateModuleAbility(@bFirefox, 'Q-Pedd Emotion Simulator')
 
-GLAuto.activatePlayerAbility(@b, 'Dark Aperture-Key','Activate')
-#GLAuto.activatePlayerAbility(@b, 'Uldrinan Quota','Use')
+
+
+GLAuto.activatePlayerAbility(@bFirefox, 'Dark Aperture-Key','Activate')
+#
 
 # Collect minerals and artifacts
-GLAuto.collectMinerals(@b)
-GLAuto.collectArtifacts(@b)
 
-GLAuto.useAllArtifact(@b,'Rescued Prisoners','Use')
-GLAuto.useAllArtifact(@b,'Android Helmsman','Hire')
-GLAuto.useAllArtifact(@b,'Android Scientist','Hire')
-GLAuto.useAllArtifact(@b,'Rescued Specialists','Hire')
-GLAuto.useAllArtifact(@b,'Rescued Scientists','Hire')
-GLAuto.useAllArtifact(@b,'XCharge Cells','Use')
-GLAuto.useAllArtifact(@b,'Durtanium Brackets','Use')
+GLAuto.collectMinerals(@bFirefox)
+GLAuto.collectArtifacts(@bFirefox)
 
-GLAuto.scrapAllArtifact(@b,'Dark Phase Engine')
-GLAuto.scrapAllArtifact(@b,'Scythe Plating')
-GLAuto.scrapAllArtifact(@b,"Sha'din Hypergrid Core")
-GLAuto.scrapAllArtifact(@b,"Sha'din Hypergrid Network")
-GLAuto.scrapAllArtifact(@b,"Sha'din Security Terminal")
-GLAuto.scrapAllArtifact(@b,'T.O. Phase Barrier')
-GLAuto.scrapAllArtifact(@b,'T.O. Harmonic TeraPulser')
+GLAuto.useAllArtifact(@bFirefox,'Rescued Prisoners','Use')
+GLAuto.useAllArtifact(@bFirefox,'Android Helmsman','Hire')
+GLAuto.useAllArtifact(@bFirefox,'Android Scientist','Hire')
+GLAuto.useAllArtifact(@bFirefox,'Rescued Specialists','Hire')
+GLAuto.useAllArtifact(@bFirefox,'Rescued Scientists','Hire')
+GLAuto.useAllArtifact(@bFirefox,'XCharge Cells','Use')
+GLAuto.useAllArtifact(@bFirefox,'Durtanium Brackets','Use')
 
-GLAuto.useArtifact(@b, 'Crimson Amplifier', 'Use')
-GLAuto.useArtifact(@b, 'Crux Amplifier', 'Use')
-GLAuto.useArtifact(@b, 'Crimson Obelisk', 'Use')
-GLAuto.useArtifact(@b, 'Ancient Crystal Foci', 'Use')
-GLAuto.useArtifact(@b, 'Shockpulse Charger', 'Use')
-GLAuto.useArtifact(@b, 'Grid Console', 'Use')
-GLAuto.useArtifact(@b, 'Nanite Swarm Capsules', 'Use')
-GLAuto.useArtifact(@b, 'Repair Nanodrones', 'Use') if GLAuto.hullTotal(@b) == 0
-GLAuto.useArtifact(@b, 'Shield Amplifier', 'Charge')
-GLAuto.useArtifact(@b, 'Neural Interface', 'Use')
-GLAuto.useArtifact(@b, 'Containment Cage', 'Use')
-GLAuto.useArtifact(@b, 'Krionus Virus Trap', 'Set')
-GLAuto.useArtifact(@b, 'Quantum Firewall Trap','Set')
 
-GLAuto.navigateToBattle(@b)
-GLAuto.battleNPCs(@b)
+GLAuto.scrapAllArtifact(@bFirefox,'Dark Phase Engine')
+GLAuto.scrapAllArtifact(@bFirefox,'Scythe Plating')
+GLAuto.scrapAllArtifact(@bFirefox,"Sha'din Hypergrid Core")
+GLAuto.scrapAllArtifact(@bFirefox,"Sha'din Hypergrid Network")
+GLAuto.scrapAllArtifact(@bFirefox,"Sha'din Security Terminal")
+GLAuto.scrapAllArtifact(@bFirefox,'T.O. Phase Barrier')
+GLAuto.scrapAllArtifact(@bFirefox,'T.O. Harmonic TeraPulser')
 
-@b.quit
+
+GLAuto.useArtifact(@bFirefox, 'Crimson Amplifier', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Crux Amplifier', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Crimson Obelisk', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Ancient Crystal Foci', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Shockpulse Charger', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Grid Console', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Nanite Swarm Capsules', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Repair Nanodrones', 'Use') if GLAuto.hullTotal(@bFirefox) == 0
+GLAuto.useArtifact(@bFirefox, 'Shield Amplifier', 'Charge')
+GLAuto.useArtifact(@bFirefox, 'Neural Interface', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Containment Cage', 'Use')
+GLAuto.useArtifact(@bFirefox, 'Krionus Virus Trap', 'Set')
+GLAuto.useArtifact(@bFirefox, 'Quantum Firewall Trap','Set')
+
+GLAuto.navigateToBattle(@bFirefox)
+GLAuto.battleNPCs(@bFirefox)
+
+
+@bFirefox.quit
 
 
