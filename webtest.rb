@@ -12,9 +12,7 @@ Watir.always_locate = false
   page.iframe(:id => 'iframe_canvas').present?
 end
 
-
 GLAuto.loginToFacebook(@bFirefox)
-
 
 @bFirefox.goto "http://apps.facebook.com/galaxylegion/"
 Watir::Wait.until(10) {@bFirefox.iframe(:id => 'iframe_canvas').present? }
@@ -31,10 +29,7 @@ GLAuto.activateModuleAbility(@bFirefox, 'Q-Pedd Assembly Line')
 GLAuto.activateModuleAbility(@bFirefox, 'Thraccti, Scruuge Defector')
 GLAuto.activateModuleAbility(@bFirefox, 'Q-Pedd Emotion Simulator')
 
-
-
 GLAuto.activatePlayerAbility(@bFirefox, 'Dark Aperture-Key','Activate')
-#
 
 # Collect minerals and artifacts
 
@@ -49,7 +44,6 @@ GLAuto.useAllArtifact(@bFirefox,'Rescued Scientists','Hire')
 GLAuto.useAllArtifact(@bFirefox,'XCharge Cells','Use')
 GLAuto.useAllArtifact(@bFirefox,'Durtanium Brackets','Use')
 
-
 GLAuto.scrapAllArtifact(@bFirefox,'Dark Phase Engine')
 GLAuto.scrapAllArtifact(@bFirefox,'Scythe Plating')
 GLAuto.scrapAllArtifact(@bFirefox,"Sha'din Hypergrid Core")
@@ -57,7 +51,6 @@ GLAuto.scrapAllArtifact(@bFirefox,"Sha'din Hypergrid Network")
 GLAuto.scrapAllArtifact(@bFirefox,"Sha'din Security Terminal")
 GLAuto.scrapAllArtifact(@bFirefox,'T.O. Phase Barrier')
 GLAuto.scrapAllArtifact(@bFirefox,'T.O. Harmonic TeraPulser')
-
 
 GLAuto.useArtifact(@bFirefox, 'Crimson Amplifier', 'Use')
 GLAuto.useArtifact(@bFirefox, 'Crux Amplifier', 'Use')
@@ -75,7 +68,6 @@ GLAuto.useArtifact(@bFirefox, 'Quantum Firewall Trap','Set')
 
 GLAuto.navigateToBattle(@bFirefox)
 GLAuto.battleNPCs(@bFirefox)
-
 
 @bFirefox.quit
 
